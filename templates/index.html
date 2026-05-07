@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Recommender System</title>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Book Recommender System</title> -->
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <style>
     .text-white{
@@ -47,4 +47,113 @@
     </div>
 
 </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOOK RECOMMENDATION SYSTEM</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #0d0d0d;
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+        padding-bottom: 50px;
+      }
+      .navbar {
+        background: linear-gradient(90deg, #14c2c9, #1aa3b8);
+        border: none;
+        border-radius: 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 24px;
+        color: white !important;
+      }
+      .nav > li > a {
+        color: white !important;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      h1 {
+        font-size: 50px;
+        font-weight: 600;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+      .book-card {
+        background: #181818;
+        border-radius: 15px;
+        padding: 15px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        height: 420px;
+      }
+      .book-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.08);
+      }
+      .book-img {
+        width: 100%;
+        height: 250px;
+        object-fit: contain;
+        background: #fff;
+        border-radius: 10px;
+        padding: 10px;
+      }
+      .book-title {
+        font-weight: 600;
+        margin-top: 10px;
+        font-size: 16px;
+      }
+      .book-author,
+      .book-meta {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">My Book Recommender</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">Home</a></li>
+          <li><a href="/recommend">Recommend</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>Top 50 Books</h1>
+      <div class="row">
+        {% for i in range(book_name|length) %} {% if image[i] and image[i] !=
+        ''%}
+        <div class="col-md-3 col-sm-6" style="margin-top: 30px">
+          <div class="book-card">
+            <img
+              src="{{ image[i] if image[i] else 'https://via.placeholder.com/150' }}"
+              class="book-img"
+            />
+            <p class="book-title">{{ book_name[i] }}</p>
+            <p class="book-author">Author: {{ author[i] }}</p>
+            <p class="book-meta">Rating: {{ rating[i]|round(2) }}</p>
+          </div>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+  </body>
 </html>

@@ -25,8 +25,19 @@ def recommend_ui():
 
 @app.route('/recommend_books',methods=['post'])
 def recommend():
-    user_input = request.form.get('user_input')
-    index = np.where(pt.index == user_input)[0][0]
+    user_input = request.form.get('user_input', '').strip()
+
+    # Case-insensitive partial match against all titles in the pivot table
+    all_titles = pt.index.tolist()
+    matches = [t for t in all_titles if user_input.lower() in t.lower()]
+
+    if not matches:
+        return render_template('recommend.html',
+                               error=f'No book found matching "{user_input}". Please try a different title.')
+
+    # Use the first (best) match
+    matched_title = matches[0]
+    index = np.where(pt.index == matched_title)[0][0]
     similar_items = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[1:5]
 
     data = []
@@ -41,7 +52,7 @@ def recommend():
 
     print(data)
 
-    return render_template('recommend.html',data=data)
+    return render_template('recommend.html', data=data, searched_title=matched_title)
 
 if __name__ == '__main__':
     app.run(debug=True)
